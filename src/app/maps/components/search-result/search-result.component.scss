@@ -1,0 +1,31 @@
+li {
+  transition: all 0.3s ease-in-out;
+
+  &:first-child,
+  &:last-child {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+ul {
+  height: 500px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    // background-image: linear-gradient(180deg, #bebebe 0%, #70747e 99%);
+    background-color: #70747e;
+    box-shadow: inset 2px 2px 5px 0 rgba(#fff, 0.5);
+    border-radius: 100px;
+  }
+}

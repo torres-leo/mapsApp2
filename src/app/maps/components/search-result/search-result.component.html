@@ -1,0 +1,23 @@
+<app-loading-cube *ngIf="IsLoadingPlaces" />
+
+<ul class="list-group mt-2" *ngIf="Places.length > 0">
+  <li
+    *ngFor="let place of Places"
+    class="list-group-item list-group-item-action pointer"
+    (click)="flyToPlace(place)"
+    [class.active]="place.id === selectedId"
+  >
+    <h6>{{ place.text_es || place.text_en }}</h6>
+    <p>
+      {{ place.place_name }}
+    </p>
+    <button
+      class="btn btn-sm"
+      [ngClass]="
+        place.id === selectedId ? 'btn-outline-light' : 'btn-outline-primary'
+      "
+    >
+      Address
+    </button>
+  </li>
+</ul>

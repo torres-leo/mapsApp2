@@ -1,0 +1,11 @@
+<div class="Search-container">
+  <input
+    type="text"
+    class="form-control Search-input"
+    placeholder="Looking for a place 🗺"
+    #txtQuery
+    (keyup)="onQueryChanged(txtQuery.value)"
+  />
+
+  <app-search-result></app-search-result>
+</div>
