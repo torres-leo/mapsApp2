@@ -3,12 +3,14 @@ import { Injectable, inject } from '@angular/core';
 import { Feature, PlacesResponse } from '../interfaces/places.interface';
 import { PlacesApiClient } from '../api/placesApiClient';
 import { delay } from 'rxjs';
+import { MapService } from './map.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PlacesService {
   private readonly HttpPlacesAPI = inject(PlacesApiClient);
+  private readonly mapService = inject(MapService);
 
   public userLocation?: [number, number];
   public isLoadingPlaces: boolean = false;
@@ -49,8 +51,8 @@ export class PlacesService {
 
     this.HttpPlacesAPI.get<PlacesResponse>(`/${query}.json`, {
       params: {
-        proximity: `${this.userLocation?.[0]},${this.userLocation?.[1]}`,
-        // proximity: this.userLocation.join(','),
+        // proximity: `${this.userLocation?.[0]},${this.userLocation?.[1]}`,
+        proximity: this.userLocation.join(','),
       },
     })
       .pipe(delay(2000))
@@ -64,6 +66,10 @@ export class PlacesService {
         },
         complete: () => {
           this.isLoadingPlaces = false;
+          this.mapService.createMarkerFromPlaces(
+            this.places,
+            this.userLocation!
+          );
         },
       });
 
@@ -72,5 +78,9 @@ export class PlacesService {
     //   this.isLoadingPlaces = false;
     //   this.places = response.features;
     // });
+  }
+
+  hidePlaces() {
+    this.places = [];
   }
 }

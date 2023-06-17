@@ -26,4 +26,17 @@ export class SearchResultComponent {
 
     this.mapService.flyTo([lng, lat]);
   }
+
+  getDirections(place: Feature) {
+    if (!this.placesService.userLocation) {
+      alert('User location not ready');
+      throw Error('User location not ready');
+    }
+
+    const start = this.placesService.userLocation!;
+    const end = place.center as [number, number];
+    this.mapService.getRouteBetweenPoints(start, end);
+
+    this.placesService.hidePlaces();
+  }
 }
